@@ -1,0 +1,39 @@
+{
+  "name": "dictionary",
+  "version": "1.0.0",
+  "description": "English Dictionary",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -d"
+  },
+  "keywords": [
+    "dictionary"
+  ],
+  "author": "Ilya Merkurev",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/preset-env": "^7.1.5",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "requirejs": "^2.3.6",
+    "rest": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.40",
+    "@babel/core": "^7.1.5",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "@babel/preset-react": "^7.0.0-beta.40",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-lodash": "^3.3.2",
+    "babel-plugin-react-transform": "^3.0.0",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  }
+}

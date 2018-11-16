@@ -1,0 +1,29 @@
+version: '2'
+services:
+  cambridgeparser:
+     container_name: cambridgeparser
+     restart: always
+     image: cambridgeparser
+     build:
+       context: ./microservice-cambridge-parser
+       dockerfile: ./Dockerfile
+     ports:
+       - "8080:8080"
+     expose:
+       - 8080
+  cambridge:
+      container_name: cambridge
+      restart: always
+      image: cambridge
+      build:
+        context: ./microservice-cambridge
+        dockerfile: ./Dockerfile
+      ports:
+        - "8081:8081"
+      expose:
+        - 8080
+      links:
+        - cambridgeparser:cambridgeparser
+      depends_on:
+        - cambridgeparser
+
