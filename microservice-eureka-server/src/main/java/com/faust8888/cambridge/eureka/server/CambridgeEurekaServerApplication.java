@@ -1,4 +1,4 @@
-package com.faust8888.eureka.server;
+package com.faust8888.cambridge.eureka.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

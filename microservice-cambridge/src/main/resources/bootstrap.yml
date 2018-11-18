@@ -1,0 +1,10 @@
+spring:
+   profiles:
+      active: test
+   application:
+      name: cambridge
+   cloud:
+      config:
+         uri: ${CONFIG_URI:http://localhost:8888}
+         enabled: true
+         profile: test

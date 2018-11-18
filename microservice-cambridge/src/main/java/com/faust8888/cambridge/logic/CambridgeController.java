@@ -3,6 +3,7 @@ package com.faust8888.cambridge.logic;
 import com.faust8888.cambridge.ui.clients.CambridgeParserClient;
 import com.faust8888.cambridge.ui.clients.item.Word;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class CambridgeController {
 
     private CambridgeParserClient cambridgeParserClient;
+
+//    @Value("${cambridge.message}")
+//    private String helloMessage;
 
     @Autowired
     public CambridgeController(CambridgeParserClient cambridgeParserClient) {
