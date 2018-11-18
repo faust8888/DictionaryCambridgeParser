@@ -1,5 +1,18 @@
-version: '2'
+version: '2.1'
 services:
+  eureka:
+       container_name: eureka
+       restart: always
+       image: eureka
+       build:
+         context: ./microservice-config
+         dockerfile: ./Dockerfile
+       ports:
+         - "8761:8761"
+       expose:
+         - 8761
+       environment:
+         - EUREKA_URI=http://eureka:8761/eureka/
   cambridgeparser:
      container_name: cambridgeparser
      restart: always
@@ -8,9 +21,15 @@ services:
        context: ./microservice-cambridge-parser
        dockerfile: ./Dockerfile
      ports:
-       - "8080:8080"
+       - "8082:8082"
      expose:
-       - 8080
+       - 8082
+     links:
+       - eureka:eureka
+     depends_on:
+       - eureka
+     environment:
+       - EUREKA_URI=http://eureka:8761/eureka/
   cambridge:
       container_name: cambridge
       restart: always
@@ -21,9 +40,13 @@ services:
       ports:
         - "8081:8081"
       expose:
-        - 8080
+        - 8081
       links:
         - cambridgeparser:cambridgeparser
+        - eureka:eureka
       depends_on:
         - cambridgeparser
+        - eureka
+      environment:
+         - EUREKA_URI=http://eureka:8761/eureka/
 

@@ -13,13 +13,14 @@ import java.io.IOException;
 
 @RestController
 @EnableAutoConfiguration
+@RequestMapping(value = "/parser/v1")
 public class CambridgeParserController {
 
     @Autowired
     private CambridgePageParserService cambridgePageParserService;
 
-    @RequestMapping(value = "/cambridgeService/parser/{word}", method = RequestMethod.GET)
-    public Word word(@PathVariable("word") String word) throws IOException {
+    @RequestMapping(value = "/parse/{word}", method = RequestMethod.GET)
+    public Word parseWord(@PathVariable("word") String word) throws IOException {
         return cambridgePageParserService.parse(word, 1000);
     }
 

@@ -13,6 +13,7 @@
         <module>microservice-cambridge-parser</module>
         <module>microservice-cambridge</module>
         <module>microservice-pdf-parser</module>
+        <module>microservice-config</module>
     </modules>
 
     <parent>
