@@ -20,7 +20,7 @@ public class CambridgeParserController {
     private CambridgePageParserService cambridgePageParserService;
 
     @RequestMapping(value = "/parse/{word}", method = RequestMethod.GET)
-    public Word parseWord(@PathVariable("word") String word) throws IOException {
+    public Word parseWord(@PathVariable("word") String word) throws IOException, InterruptedException {
         return cambridgePageParserService.parse(word, 1000);
     }
 

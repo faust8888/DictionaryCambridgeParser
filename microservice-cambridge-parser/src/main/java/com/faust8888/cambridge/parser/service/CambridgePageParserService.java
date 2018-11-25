@@ -32,7 +32,7 @@ public final class CambridgePageParserService {
 
     private String word;
 
-    public Word parse(final String word, final int timeoutMillis) throws IOException {
+    public Word parse(final String word, final int timeoutMillis) throws IOException, InterruptedException {
         this.word = Objects.requireNonNull(word, "Word's parameter can'readPdf be null.");
 
         Document wordDoc = Jsoup.parse(new URL(CAMBRIDGE_DICTIONARY_URL + this.word), timeoutMillis);

@@ -11,6 +11,11 @@ eureka:
 spring:
    application:
       name: cambridge
+management:
+   endpoints:
+      web:
+         exposure:
+           include: "*"
 
 #profiles:
 #   active: default

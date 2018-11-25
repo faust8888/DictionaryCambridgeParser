@@ -2,10 +2,14 @@ spring:
    cloud:
       config:
          server:
-            git:
-              uri: https://github.com/faust8888/cambridge-config
-              clone-on-start: true
-              search-paths: 'cambridge'
-              skip-ssl-validation: true
-              timeout: 4
-         enabled: true
+#            git:
+#              uri: https://github.com/faust8888/cambridge-config
+#              clone-on-start: true
+#              search-paths: 'cambridge'
+#              skip-ssl-validation: true
+#              timeout: 4
+            native:
+              search-locations: file:///Users/ilyamerkurev/IdeaProjects/cambridge-config/cambridge
+#         enabled: true
+   profiles:
+     active: native
