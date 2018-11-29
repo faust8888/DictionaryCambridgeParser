@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping(value = "/parser/v1")
+//@RequestMapping(value = "/cambridgeparser")
 public class CambridgeParserController {
 
     @Autowired

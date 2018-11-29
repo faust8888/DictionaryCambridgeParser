@@ -28,6 +28,29 @@ services:
        environment:
          - EUREKA_URI=http://eureka:8761/eureka/
          - CONFIG_URI=http://cambridgeconfig:8888
+  cambridgezool:
+         container_name: zuul
+         restart: always
+         image: zuul
+         build:
+           context: ./microservice-zuul-server
+           dockerfile: ./Dockerfile
+         ports:
+           - "8083:8083"
+         expose:
+           - 8083
+         links:
+                - eureka:eureka
+                - cambridgeconfig:cambridgeconfig
+                - cambridgeparser:cambridgeparser
+         depends_on:
+                - eureka
+                - cambridgeconfig
+                - cambridgeparser
+         environment:
+           - EUREKA_URI=http://eureka:8761/eureka/
+           - CONFIG_URI=http://cambridgeconfig:8888
+           - CAMBRIDGEPARSER_URI=http://cambridgeparser:8082
   cambridgeparser:
      container_name: cambridgeparser
      restart: always

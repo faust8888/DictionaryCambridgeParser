@@ -1,0 +1,23 @@
+server:
+   port: 8083
+eureka:
+  client:
+     service-url:
+        defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+     register-with-eureka: true
+     fetch-registry: true
+  instance:
+     preferIpAddress: true
+spring:
+   application:
+      name: cambridgezool
+management:
+   endpoints:
+      web:
+         exposure:
+           include: "*"
+zuul:
+  routes:
+     cambridgeparser: /parser/**
+#  prefix: /api
+  ignored-services: "*"
