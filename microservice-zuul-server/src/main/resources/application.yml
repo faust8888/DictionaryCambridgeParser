@@ -11,6 +11,9 @@ eureka:
 spring:
    application:
       name: cambridgezool
+   devtools:
+      remote:
+        secret: thisismysecret
 management:
    endpoints:
       web:
@@ -21,3 +24,13 @@ zuul:
      cambridgeparser: /parser/**
 #  prefix: /api
   ignored-services: "*"
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 60000
+#ribbon:
+#  ConnectTimeout: 6000
+#  ReadTimeout: 60000
