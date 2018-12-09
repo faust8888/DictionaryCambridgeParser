@@ -22,8 +22,8 @@ management:
 zuul:
   routes:
      cambridgeparser: /parser/**
-#  prefix: /api
   ignored-services: "*"
+  sensitive-headers: Cookie,Set-Cookie
 #hystrix:
 #  command:
 #    default:

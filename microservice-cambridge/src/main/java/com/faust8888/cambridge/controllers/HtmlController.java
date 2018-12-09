@@ -1,4 +1,4 @@
-package com.faust8888.cambridge.logic;
+package com.faust8888.cambridge.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

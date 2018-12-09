@@ -1,8 +1,8 @@
-package com.faust8888.cambridge.logic;
+package com.faust8888.cambridge.controllers;
 
 import com.faust8888.cambridge.spring.DictionaryAppConfig;
-import com.faust8888.cambridge.ui.clients.CambridgeParserClient;
-import com.faust8888.cambridge.ui.clients.item.Word;
+import com.faust8888.cambridge.clients.CambridgeParserClient;
+import com.faust8888.cambridge.clients.item.Word;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

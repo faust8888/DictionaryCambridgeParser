@@ -16,6 +16,13 @@ management:
       web:
          exposure:
            include: "*"
+logging:
+  level:
+     org.springframework.security: debug
+security:
+  oauth2:
+    resource:
+       userInfoUri: ${OAUTH_URI:http://localhost:8085/user}
 
 #profiles:
 #   active: default

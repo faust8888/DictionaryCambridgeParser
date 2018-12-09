@@ -16,6 +16,7 @@
         <module>microservice-eureka-server</module>
         <module>microservice-config-server</module>
         <module>microservice-zuul-server</module>
+        <module>microservice-authentication-oauth2-server</module>
     </modules>
 
     <parent>

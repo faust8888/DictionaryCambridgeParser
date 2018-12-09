@@ -1,5 +1,5 @@
 server:
-   port: 8082
+   port: 8085
 eureka:
   client:
      service-url:
@@ -10,14 +10,18 @@ eureka:
      preferIpAddress: true
 spring:
    application:
-      name: cambridgeparser
-logging:
-  level:
-    org.springframework.security: debug
+      name: cambridgeauthentication
+management:
+   endpoints:
+      web:
+         exposure:
+           include: "*"
 security:
   oauth2:
     resource:
        userInfoUri: ${OAUTH_URI:http://localhost:8085/user}
+logging:
+  level:
+     org.springframework.security: debug
 
-#profiles:
-#   active: default
+
