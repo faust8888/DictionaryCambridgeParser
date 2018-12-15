@@ -1,15 +1,15 @@
-package com.faust8888.cambridge.config.security;
+package com.faust8888.cambridge.eureka.server.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
-
 @Configuration
-public class CambridgeConfigServerConfiguration extends ResourceServerConfigurerAdapter {
+public class EurekaServerConfigureAdapter extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception{
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().antMatchers("/**").permitAll();
     }
+
 }

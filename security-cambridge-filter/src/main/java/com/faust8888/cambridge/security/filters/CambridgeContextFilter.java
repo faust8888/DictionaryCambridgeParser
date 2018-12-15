@@ -1,7 +1,7 @@
 package com.faust8888.cambridge.security.filters;
 
-import com.faust8888.cambridge.security.utils.UserContext;
-import com.faust8888.cambridge.security.utils.UserContextHolder;
+import com.faust8888.cambridge.security.context.UserContext;
+import com.faust8888.cambridge.security.context.UserContextHolder;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;

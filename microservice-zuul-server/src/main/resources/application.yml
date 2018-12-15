@@ -22,15 +22,10 @@ management:
 zuul:
   routes:
      cambridgeparser: /parser/**
+     cambridge: /cambridge/**
   ignored-services: "*"
   sensitive-headers: Cookie,Set-Cookie
-#hystrix:
-#  command:
-#    default:
-#      execution:
-#        isolation:
-#          thread:
-#            timeoutInMilliseconds: 60000
-#ribbon:
-#  ConnectTimeout: 6000
-#  ReadTimeout: 60000
+security:
+  oauth2:
+    resource:
+       userInfoUri: ${OAUTH_URI:http://localhost:8085/user}

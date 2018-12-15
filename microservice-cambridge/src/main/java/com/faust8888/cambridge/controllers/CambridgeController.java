@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/cambridge/v1")
+//@RequestMapping(value = "/cambridge/v1")
 public class CambridgeController {
 
     private CambridgeParserClient cambridgeParserClient;

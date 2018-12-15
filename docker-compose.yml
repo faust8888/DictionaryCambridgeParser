@@ -9,11 +9,32 @@ services:
          dockerfile: ./Dockerfile
        ports:
          - "8888:8888"
+       links:
+         - cambridgeauthentication:cambridgeauthentication
        expose:
          - 8888
        environment:
          - EUREKA_URI=http://eureka:8761/eureka/
          - CONFIG_URI=http://cambridgeconfig:8888
+         - OAUTH_URI=http://cambridgeauthentication:8085/user/
+  cambridgeauthentication:
+          container_name: cambridgeauthentication
+          restart: always
+          image: cambridgeauthentication
+          build:
+            context: ./microservice-authentication-oauth2-server
+            dockerfile: ./Dockerfile
+          ports:
+            - "8085:8085"
+          expose:
+            - 8085
+          links:
+            - eureka:eureka
+          depends_on:
+            - eureka
+          environment:
+             - EUREKA_URI=http://eureka:8761/eureka/
+             - CONFIG_URI=http://cambridgeconfig:8888
   eureka:
        container_name: eureka
        restart: always
@@ -23,11 +44,14 @@ services:
          dockerfile: ./Dockerfile
        ports:
          - "8761:8761"
+#       links:
+#         - cambridgeauthentication:cambridgeauthentication
        expose:
          - 8761
        environment:
          - EUREKA_URI=http://eureka:8761/eureka/
          - CONFIG_URI=http://cambridgeconfig:8888
+         - OAUTH_URI=http://cambridgeauthentication:8085/user/
   cambridgezool:
          container_name: zuul
          restart: always
@@ -40,17 +64,20 @@ services:
          expose:
            - 8083
          links:
-                - eureka:eureka
-                - cambridgeconfig:cambridgeconfig
-                - cambridgeparser:cambridgeparser
+           - eureka:eureka
+           - cambridgeconfig:cambridgeconfig
+           - cambridgeparser:cambridgeparser
+           - cambridgeauthentication:cambridgeauthentication
          depends_on:
-                - eureka
-                - cambridgeconfig
-                - cambridgeparser
+           - eureka
+           - cambridgeconfig
+           - cambridgeparser
+           - cambridgeauthentication
          environment:
            - EUREKA_URI=http://eureka:8761/eureka/
            - CONFIG_URI=http://cambridgeconfig:8888
            - CAMBRIDGEPARSER_URI=http://cambridgeparser:8082
+           - OAUTH_URI=http://cambridgeauthentication:8085/user/
   cambridgeparser:
      container_name: cambridgeparser
      restart: always
@@ -65,12 +92,15 @@ services:
      links:
        - eureka:eureka
        - cambridgeconfig:cambridgeconfig
+       - cambridgeauthentication:cambridgeauthentication
      depends_on:
        - eureka
        - cambridgeconfig
+       - cambridgeauthentication
      environment:
        - EUREKA_URI=http://eureka:8761/eureka/
        - CONFIG_URI=http://cambridgeconfig:8888
+       - OAUTH_URI=http://cambridgeauthentication:8085/user/
   cambridge:
       container_name: cambridge
       restart: always
@@ -86,11 +116,15 @@ services:
         - cambridgeconfig:cambridgeconfig
         - cambridgeparser:cambridgeparser
         - eureka:eureka
+        - cambridgeauthentication:cambridgeauthentication
       depends_on:
         - cambridgeparser
         - eureka
         - cambridgeconfig
+        - cambridgeauthentication
       environment:
          - EUREKA_URI=http://eureka:8761/eureka/
          - CONFIG_URI=http://cambridgeconfig:8888
+         - OAUTH_URI=http://cambridgeauthentication:8085/user/
+
 

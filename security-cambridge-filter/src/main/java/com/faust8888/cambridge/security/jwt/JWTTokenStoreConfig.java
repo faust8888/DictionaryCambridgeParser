@@ -1,11 +1,11 @@
 package com.faust8888.cambridge.security.jwt;
 
-import com.faust8888.cambridge.security.utils.UserContextInterceptor;
-import com.faust8888.cambridge.spring.DictionaryAppConfig;
+import com.faust8888.cambridge.security.context.UserContextInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.token.DefaultAccessTokenRequest;
@@ -23,12 +23,8 @@ import java.util.List;
 @Configuration
 public class JWTTokenStoreConfig {
 
-    private DictionaryAppConfig serviceConfig;
-
     @Autowired
-    public JWTTokenStoreConfig(DictionaryAppConfig serviceConfig) {
-        this.serviceConfig = serviceConfig;
-    }
+    public JWTTokenStoreConfig() {}
 
     @Bean
     public TokenStore tokenStore() {
@@ -41,13 +37,14 @@ public class JWTTokenStoreConfig {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore());
         defaultTokenServices.setSupportRefreshToken(true);
+
         return defaultTokenServices;
     }
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(serviceConfig.getSigningKey());
+        converter.setSigningKey("key");
         return converter;
     }
 
@@ -63,7 +60,7 @@ public class JWTTokenStoreConfig {
         List interceptors = template.getInterceptors();
         if (interceptors == null) {
             template.setInterceptors(
-                    Collections.singletonList(
+                    Collections.<ClientHttpRequestInterceptor>singletonList(
                             new UserContextInterceptor()));
         } else {
             interceptors.add(new UserContextInterceptor());

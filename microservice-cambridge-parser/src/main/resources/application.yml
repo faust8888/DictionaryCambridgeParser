@@ -11,6 +11,11 @@ eureka:
 spring:
    application:
       name: cambridgeparser
+management:
+   endpoints:
+      web:
+         exposure:
+           include: "*"
 logging:
   level:
     org.springframework.security: debug
