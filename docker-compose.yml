@@ -7,9 +7,10 @@ services:
        build:
          context: ./microservice-config-server
          dockerfile: ./Dockerfile
+       mem_limit: 512M
        ports:
          - "8888:8888"
-       links:
+#       links:
          - cambridgeauthentication:cambridgeauthentication
        expose:
          - 8888
@@ -17,6 +18,7 @@ services:
          - EUREKA_URI=http://eureka:8761/eureka/
          - CONFIG_URI=http://cambridgeconfig:8888
          - OAUTH_URI=http://cambridgeauthentication:8085/user/
+         - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
   cambridgeauthentication:
           container_name: cambridgeauthentication
           restart: always
@@ -24,6 +26,7 @@ services:
           build:
             context: ./microservice-authentication-oauth2-server
             dockerfile: ./Dockerfile
+          mem_limit: 512M
           ports:
             - "8085:8085"
           expose:
@@ -34,7 +37,8 @@ services:
             - eureka
           environment:
              - EUREKA_URI=http://eureka:8761/eureka/
-             - CONFIG_URI=http://cambridgeconfig:8888
+#             - CONFIG_URI=http://cambridgeconfig:8888
+             - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
   eureka:
        container_name: eureka
        restart: always
@@ -42,6 +46,7 @@ services:
        build:
          context: ./microservice-eureka-server
          dockerfile: ./Dockerfile
+       mem_limit: 512M
        ports:
          - "8761:8761"
 #       links:
@@ -52,6 +57,7 @@ services:
          - EUREKA_URI=http://eureka:8761/eureka/
          - CONFIG_URI=http://cambridgeconfig:8888
          - OAUTH_URI=http://cambridgeauthentication:8085/user/
+         - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
   cambridgezool:
          container_name: zuul
          restart: always
@@ -59,6 +65,7 @@ services:
          build:
            context: ./microservice-zuul-server
            dockerfile: ./Dockerfile
+         mem_limit: 512M
          ports:
            - "8083:8083"
          expose:
@@ -78,6 +85,7 @@ services:
            - CONFIG_URI=http://cambridgeconfig:8888
            - CAMBRIDGEPARSER_URI=http://cambridgeparser:8082
            - OAUTH_URI=http://cambridgeauthentication:8085/user/
+           - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
   cambridgeparser:
      container_name: cambridgeparser
      restart: always
@@ -85,6 +93,7 @@ services:
      build:
        context: ./microservice-cambridge-parser
        dockerfile: ./Dockerfile
+     mem_limit: 512M
      ports:
        - "8082:8082"
      expose:
@@ -101,6 +110,7 @@ services:
        - EUREKA_URI=http://eureka:8761/eureka/
        - CONFIG_URI=http://cambridgeconfig:8888
        - OAUTH_URI=http://cambridgeauthentication:8085/user/
+       - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
   cambridge:
       container_name: cambridge
       restart: always
@@ -108,6 +118,7 @@ services:
       build:
         context: ./microservice-cambridge
         dockerfile: ./Dockerfile
+      mem_limit: 512M
       ports:
         - "8081:8081"
       expose:
@@ -126,5 +137,4 @@ services:
          - EUREKA_URI=http://eureka:8761/eureka/
          - CONFIG_URI=http://cambridgeconfig:8888
          - OAUTH_URI=http://cambridgeauthentication:8085/user/
-
-
+         - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
