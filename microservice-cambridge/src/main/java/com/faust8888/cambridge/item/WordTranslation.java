@@ -1,13 +1,17 @@
-package com.faust8888.cambridge.parser.item;
+package com.faust8888.cambridge.item;
 
 import java.util.List;
 
 public class WordTranslation {
 
-    private final String word;
-    private final String shortMeaning;
-    private final String form;
-    private final List<WordMeaning> examples;
+    private String word;
+    private String shortMeaning;
+    private String form;
+    private List<WordMeaning> examples;
+
+    public WordTranslation() {
+
+    }
 
     public WordTranslation(String word, String shortMeaning, String form, List<WordMeaning> examples) {
         this.word = word;

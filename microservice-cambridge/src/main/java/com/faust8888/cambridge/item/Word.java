@@ -1,4 +1,4 @@
-package com.faust8888.cambridge.clients.item;
+package com.faust8888.cambridge.item;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.hateoas.ResourceSupport;

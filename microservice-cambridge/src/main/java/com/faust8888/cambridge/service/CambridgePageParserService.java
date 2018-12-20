@@ -1,13 +1,14 @@
-package com.faust8888.cambridge.parser.service;
+package com.faust8888.cambridge.service;
 
-import com.faust8888.cambridge.parser.item.Word;
-import com.faust8888.cambridge.parser.item.WordTranslation;
+
+import com.faust8888.cambridge.item.Word;
+import com.faust8888.cambridge.item.WordMeaning;
+import com.faust8888.cambridge.item.WordTranslation;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
-import com.faust8888.cambridge.parser.item.WordMeaning;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

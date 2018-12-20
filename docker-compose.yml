@@ -73,44 +73,16 @@ services:
          links:
            - eureka:eureka
            - cambridgeconfig:cambridgeconfig
-           - cambridgeparser:cambridgeparser
            - cambridgeauthentication:cambridgeauthentication
          depends_on:
            - eureka
            - cambridgeconfig
-           - cambridgeparser
            - cambridgeauthentication
          environment:
            - EUREKA_URI=http://eureka:8761/eureka/
            - CONFIG_URI=http://cambridgeconfig:8888
-           - CAMBRIDGEPARSER_URI=http://cambridgeparser:8082
            - OAUTH_URI=http://cambridgeauthentication:8085/user/
            - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
-  cambridgeparser:
-     container_name: cambridgeparser
-     restart: always
-     image: cambridgeparser
-     build:
-       context: ./microservice-cambridge-parser
-       dockerfile: ./Dockerfile
-     mem_limit: 512M
-     ports:
-       - "8082:8082"
-     expose:
-       - 8082
-     links:
-       - eureka:eureka
-       - cambridgeconfig:cambridgeconfig
-       - cambridgeauthentication:cambridgeauthentication
-     depends_on:
-       - eureka
-       - cambridgeconfig
-       - cambridgeauthentication
-     environment:
-       - EUREKA_URI=http://eureka:8761/eureka/
-       - CONFIG_URI=http://cambridgeconfig:8888
-       - OAUTH_URI=http://cambridgeauthentication:8085/user/
-       - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
   cambridge:
       container_name: cambridge
       restart: always
@@ -125,11 +97,9 @@ services:
         - 8081
       links:
         - cambridgeconfig:cambridgeconfig
-        - cambridgeparser:cambridgeparser
         - eureka:eureka
         - cambridgeauthentication:cambridgeauthentication
       depends_on:
-        - cambridgeparser
         - eureka
         - cambridgeconfig
         - cambridgeauthentication

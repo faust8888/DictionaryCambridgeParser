@@ -1,4 +1,4 @@
-package com.faust8888.cambridge.clients.item;
+package com.faust8888.cambridge.item;
 
 import java.util.List;
 import java.util.Objects;
