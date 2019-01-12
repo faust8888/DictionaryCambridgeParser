@@ -10,8 +10,6 @@ services:
        mem_limit: 512M
        ports:
          - "8888:8888"
-#       links:
-         - cambridgeauthentication:cambridgeauthentication
        expose:
          - 8888
        environment:
@@ -19,6 +17,8 @@ services:
          - CONFIG_URI=http://cambridgeconfig:8888
          - OAUTH_URI=http://cambridgeauthentication:8085/user/
          - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
+       networks:
+         - cambridge-network
   cambridgeauthentication:
           container_name: cambridgeauthentication
           restart: always
@@ -31,14 +31,14 @@ services:
             - "8085:8085"
           expose:
             - 8085
-          links:
-            - eureka:eureka
           depends_on:
             - eureka
           environment:
              - EUREKA_URI=http://eureka:8761/eureka/
 #             - CONFIG_URI=http://cambridgeconfig:8888
              - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
+          networks:
+            - cambridge-network
   eureka:
        container_name: eureka
        restart: always
@@ -49,8 +49,6 @@ services:
        mem_limit: 512M
        ports:
          - "8761:8761"
-#       links:
-#         - cambridgeauthentication:cambridgeauthentication
        expose:
          - 8761
        environment:
@@ -58,6 +56,8 @@ services:
          - CONFIG_URI=http://cambridgeconfig:8888
          - OAUTH_URI=http://cambridgeauthentication:8085/user/
          - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
+       networks:
+         - cambridge-network
   cambridgezool:
          container_name: zuul
          restart: always
@@ -70,10 +70,6 @@ services:
            - "8083:8083"
          expose:
            - 8083
-         links:
-           - eureka:eureka
-           - cambridgeconfig:cambridgeconfig
-           - cambridgeauthentication:cambridgeauthentication
          depends_on:
            - eureka
            - cambridgeconfig
@@ -83,6 +79,8 @@ services:
            - CONFIG_URI=http://cambridgeconfig:8888
            - OAUTH_URI=http://cambridgeauthentication:8085/user/
            - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
+         networks:
+           - cambridge-network
   cambridge:
       container_name: cambridge
       restart: always
@@ -95,10 +93,6 @@ services:
         - "8081:8081"
       expose:
         - 8081
-      links:
-        - cambridgeconfig:cambridgeconfig
-        - eureka:eureka
-        - cambridgeauthentication:cambridgeauthentication
       depends_on:
         - eureka
         - cambridgeconfig
@@ -108,3 +102,8 @@ services:
          - CONFIG_URI=http://cambridgeconfig:8888
          - OAUTH_URI=http://cambridgeauthentication:8085/user/
          - JAVA_OPT:-Xms256m -Xmx512m XX:+UseContainerSupport
+      networks:
+        - cambridge-network
+networks:
+  cambridge-network:
+    driver: bridge
