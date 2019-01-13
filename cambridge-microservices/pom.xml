@@ -20,6 +20,7 @@
         <module>microservice-authentication-oauth2-server</module>
         <module>microservice-config-server</module>
         <module>microservice-cambridge-events</module>
+        <module>microservice-cambridge-command-query</module>
     </modules>
 
     <parent>
