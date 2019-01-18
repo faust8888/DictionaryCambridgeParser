@@ -11,6 +11,10 @@ eureka:
 spring:
    application:
       name: cambridgecqrs
+   liquibase:
+     change-log: liquibase/db-changelog-1.0.xml
+     default-schema: cambridge
+
 management:
    endpoints:
       web:
@@ -23,3 +27,4 @@ security:
   oauth2:
     resource:
        userInfoUri: ${OAUTH_URI:http://localhost:8085/user}
+

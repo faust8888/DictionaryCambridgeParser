@@ -3,15 +3,8 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="create_department" author="merkurev.i">
-        <createTable tableName="department">
-            <column name="id" type="int">
-                <constraints primaryKey="true" nullable="false" />
-            </column>
-            <column name="name" type="varchar(50)">
-                <constraints nullable="false" />
-            </column>
-        </createTable>
+    <changeSet id="init database" author="merkurev.i">
+        <sqlFile dbms="mysql" endDelimiter=";" relativeToChangelogFile="true"  path="./sql/init_database.sql"/>
     </changeSet>
 
 </databaseChangeLog>

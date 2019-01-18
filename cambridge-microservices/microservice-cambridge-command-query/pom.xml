@@ -103,6 +103,10 @@
                 <configuration>
                     <propertyFile>liquibase/liquibase.properties</propertyFile>
                     <changeLogFile>liquibase/db-changelog-master.xml</changeLogFile>
+                    <driver>com.mysql.jdbc.Driver</driver>
+                    <url>jdbc:mysql://localhost:3306/liquibase_cambridge?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</url>
+                    <username>root</username>
+                    <password>ilya130288</password>
                 </configuration>
                 <!--
                 <executions>
