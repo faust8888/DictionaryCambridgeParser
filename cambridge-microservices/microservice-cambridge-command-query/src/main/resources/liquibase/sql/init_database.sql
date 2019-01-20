@@ -1,23 +1,24 @@
 CREATE SCHEMA cambridge;
 
 CREATE TABLE IF NOT EXISTS cambridge.DICTIONARY(
-    id INT(10),
+    id BIGINT AUTO_INCREMENT,
     tag VARCHAR(100),
     dictionary_name VARCHAR(100) NOT NULL,
     create_date DATE,
-    user_id INT(10),
+    user_id BIGINT(10),
+    dictionary_content_id BIGINT,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS cambridge.WORD(
-    id INT(10),
+    id BIGINT AUTO_INCREMENT,
     word VARCHAR(300) NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS cambridge.TRANSLATION(
-    id INT(10),
-    word_id int(10),
+    id BIGINT AUTO_INCREMENT,
+    word_id BIGINT,
     short_meaning VARCHAR(500),
     form VARCHAR(50),
     PRIMARY KEY (id),
@@ -25,9 +26,9 @@ CREATE TABLE IF NOT EXISTS cambridge.TRANSLATION(
 );
 
 CREATE TABLE IF NOT EXISTS cambridge.MEANING(
-    id INT(10),
-    word_id int(10),
-    word_translation_id int(10),
+    id BIGINT AUTO_INCREMENT,
+    word_id BIGINT,
+    word_translation_id BIGINT,
     explanation VARCHAR(400),
     examples VARCHAR(600),
     PRIMARY KEY (id),
@@ -36,11 +37,12 @@ CREATE TABLE IF NOT EXISTS cambridge.MEANING(
 );
 
 CREATE TABLE IF NOT EXISTS cambridge.DICTIONARY_CONTENT(
-    id INT(10),
-    dictionary_id int(10),
-    word_id int(10),
+    id BIGINT AUTO_INCREMENT,
+    dictionary_id BIGINT,
+    word_id BIGINT,
     PRIMARY KEY (id),
     FOREIGN KEY (dictionary_id) REFERENCES cambridge.DICTIONARY(id),
     FOREIGN KEY (word_id) REFERENCES cambridge.WORD(id)
 );
 
+ALTER TABLE cambridge.DICTIONARY ADD CONSTRAINT fk_dictionary_content_id FOREIGN KEY (dictionary_content_id) REFERENCES cambridge.DICTIONARY_CONTENT(id);

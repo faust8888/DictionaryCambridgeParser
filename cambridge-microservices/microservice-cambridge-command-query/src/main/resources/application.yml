@@ -12,9 +12,13 @@ spring:
    application:
       name: cambridgecqrs
    liquibase:
-     change-log: liquibase/db-changelog-1.0.xml
+     change-log: classpath:liquibase/db-changelog-1.0.xml
      default-schema: cambridge
-
+   datasource:
+     url: ${DB_URL:jdbc:mysql://localhost:3306/cambridge?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC}
+     username: root
+     password: ilya1302
+     driver-class-name: com.mysql.jdbc.Driver
 management:
    endpoints:
       web:
@@ -27,4 +31,5 @@ security:
   oauth2:
     resource:
        userInfoUri: ${OAUTH_URI:http://localhost:8085/user}
+
 
