@@ -17,7 +17,13 @@ public class CambridgeEventController {
 
     @RequestMapping(value = "/addWordEvent", method = RequestMethod.PUT)
     public ResponseEntity addWordEvent(@RequestBody String addWordEvent) {
-        kafkaCambridgeEventsService.sendEventMessage(addWordEvent);
+        kafkaCambridgeEventsService.sendWordEventMessage(addWordEvent);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/addDictionaryEvent", method = RequestMethod.PUT)
+    public ResponseEntity addDictionaryEvent(@RequestBody String addDictionaryEvent) {
+        kafkaCambridgeEventsService.sendDictionaryEventMessage(addDictionaryEvent);
         return new ResponseEntity(HttpStatus.OK);
     }
 

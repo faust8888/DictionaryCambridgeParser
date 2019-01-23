@@ -15,14 +15,20 @@ public class KafkaEventsConfig {
     @Value("${cambridge.kafkaEvents.clientId:cambridgeevents}")
     public String clientId;
 
-    @Value("${cambridge.kafkaEvents.eventTopicName:eventTopic}")
-    public String eventTopicName;
+    @Value("${cambridge.kafkaEvents.eventWordTopicName:wordEventTopic}")
+    public String wordEventTopicName;
+
+    @Value("${cambridge.kafkaEvents.eventDictionaryTopicName:dictionaryEventTopic}")
+    public String dictionaryEventTopicName;
 
     @Value("${cambridge.kafkaEvents.eventPartitionKey:eventPartitionKey}")
     public String eventPartitionKey;
 
-    @Value("${cambridge.kafkaEvents.eventConsumerGroupId:consumerEventsGroup}")
-    public String eventConsumerGroupId;
+    @Value("${cambridge.kafkaEvents.eventWordConsumerGroupId:wordConsumerEventsGroup}")
+    public String wordEventConsumerGroupId;
+
+    @Value("${cambridge.kafkaEvents.eventDictionaryConsumerGroupId:dictionaryConsumerEventsGroup}")
+    public String dictionaryEventConsumerGroupId;
 
 
     public String getEventsKafkaBroker() {
@@ -41,20 +47,20 @@ public class KafkaEventsConfig {
         this.clientId = clientId;
     }
 
-    public String getEventTopicName() {
-        return eventTopicName;
+    public String getWordEventTopicName() {
+        return wordEventTopicName;
     }
 
-    public void setEventTopicName(String eventTopicName) {
-        this.eventTopicName = eventTopicName;
+    public void setWordEventTopicName(String wordEventTopicName) {
+        this.wordEventTopicName = wordEventTopicName;
     }
 
-    public String getEventConsumerGroupId() {
-        return eventConsumerGroupId;
+    public String getWordEventConsumerGroupId() {
+        return wordEventConsumerGroupId;
     }
 
-    public void setEventConsumerGroupId(String eventConsumerGroupId) {
-        this.eventConsumerGroupId = eventConsumerGroupId;
+    public void setWordEventConsumerGroupId(String wordEventConsumerGroupId) {
+        this.wordEventConsumerGroupId = wordEventConsumerGroupId;
     }
 
     public String getEventPartitionKey() {
@@ -63,5 +69,21 @@ public class KafkaEventsConfig {
 
     public void setEventPartitionKey(String eventPartitionKey) {
         this.eventPartitionKey = eventPartitionKey;
+    }
+
+    public String getDictionaryEventTopicName() {
+        return dictionaryEventTopicName;
+    }
+
+    public void setDictionaryEventTopicName(String dictionaryEventTopicName) {
+        this.dictionaryEventTopicName = dictionaryEventTopicName;
+    }
+
+    public String getDictionaryEventConsumerGroupId() {
+        return dictionaryEventConsumerGroupId;
+    }
+
+    public void setDictionaryEventConsumerGroupId(String dictionaryEventConsumerGroupId) {
+        this.dictionaryEventConsumerGroupId = dictionaryEventConsumerGroupId;
     }
 }

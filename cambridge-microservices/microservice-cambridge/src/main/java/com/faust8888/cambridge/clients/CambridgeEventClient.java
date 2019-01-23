@@ -1,5 +1,6 @@
 package com.faust8888.cambridge.clients;
 
+import com.faust8888.cambridge.events.DictionaryAddedEvent;
 import com.faust8888.cambridge.events.WordAddedEvent;
 import com.faust8888.cambridge.service.DiscoveryClientService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
@@ -26,6 +27,14 @@ public class CambridgeEventClient {
                     @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")})
     public void createWordAddedEvent(final WordAddedEvent wordAddedEvent) {
         customRestTemplate.put(discoveryClient.getAddedWordEventUrl(), wordAddedEvent.toStringJSON());
+    }
+
+    @HystrixCommand(
+            commandProperties= {
+                    @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="6000"),
+                    @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")})
+    public void createDictionaryAddedEvent(final DictionaryAddedEvent dictionaryAddedEvent) {
+        customRestTemplate.put(discoveryClient.getAddedDictionaryEventUrl(), dictionaryAddedEvent.toStringJSON());
     }
 
 //

@@ -28,6 +28,14 @@ public class DiscoveryClientService {
         return String.format("http://%s:%s/cambridge/events/addWordEvent", host, port);
     }
 
+    public String getAddedDictionaryEventUrl() {
+        ServiceInstance serviceInstance = getServerInstance("cambridgeevents");
+        String host = serviceInstance.getHost();
+        Integer port = serviceInstance.getPort();
+
+        return String.format("http://%s:%s/cambridge/events/addDictionaryEvent", host, port);
+    }
+
     private ServiceInstance getServerInstance(final String serviceName) {
         List<ServiceInstance> instances =
                 discoveryClient.getInstances("cambridgeevents");

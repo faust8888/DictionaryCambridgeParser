@@ -9,8 +9,11 @@ public final class WordAddedEvent extends CambridgeEvent {
 
     @JsonProperty("id")
     private Long eventId;
+
     private Long dictionaryId;
+
     private String dictionaryName;
+
     private Word word;
 
     private WordAddedEvent(final Long eventId, final Long dictionaryId, final String dictionaryName, final Word word) {
@@ -32,20 +35,23 @@ public final class WordAddedEvent extends CambridgeEvent {
         return word;
     }
 
-    public String toStringJSON() {
-        try {
-            return new ObjectMapper().writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return "-";
-        }
-    }
+//    public String toStringJSON() {
+//        try {
+//            return new ObjectMapper().writeValueAsString(this);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//            return "-";
+//        }
+//    }
 
     public static class Builder {
 
         private Long eventId;
+
         private Long dictionaryId;
+
         private String dictionaryName;
+
         private Word word;
 
         public Builder addEventId(final Long eventId) {

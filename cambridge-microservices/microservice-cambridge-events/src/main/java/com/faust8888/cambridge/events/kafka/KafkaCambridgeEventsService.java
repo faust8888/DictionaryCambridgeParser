@@ -17,8 +17,12 @@ public class KafkaCambridgeEventsService {
         this.kafkaEventsConfig = kafkaEventsConfig;
     }
 
-    public void sendEventMessage(String message) {
-        kafkaTemplate.send(kafkaEventsConfig.getEventTopicName(), kafkaEventsConfig.getEventPartitionKey(), message);
+    public void sendWordEventMessage(String message) {
+        kafkaTemplate.send(kafkaEventsConfig.getWordEventTopicName(), kafkaEventsConfig.getEventPartitionKey(), message);
+    }
+
+    public void sendDictionaryEventMessage(String message) {
+        kafkaTemplate.send(kafkaEventsConfig.getDictionaryEventTopicName(), kafkaEventsConfig.getEventPartitionKey(), message);
     }
 
 }

@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 //@RequestMapping(value = "/cambridge/v1")
-public class CambridgeController {
+public class CambridgeWordController {
 
     private CambridgeEventClient eventClient;
     private CambridgePageParserService pageParserService;
     private DictionaryAppConfig config;
 
     @Autowired
-    public CambridgeController(DictionaryAppConfig config, CambridgePageParserService pageParserService, CambridgeEventClient eventClient) {
+    public CambridgeWordController(DictionaryAppConfig config, CambridgePageParserService pageParserService, CambridgeEventClient eventClient) {
         this.eventClient = eventClient;
         this.pageParserService = pageParserService;
         this.config = config;
