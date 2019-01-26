@@ -2,8 +2,8 @@ package com.faust8888.cambridge.cqrs.kafka;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.faust8888.cambridge.cqrs.command.service.CommandHandlerService;
-import com.faust8888.cambridge.events.DictionaryAddedEvent;
-import com.faust8888.cambridge.events.WordAddedEvent;
+import com.faust8888.cambridge.events.DictionaryEvent;
+import com.faust8888.cambridge.events.WordEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -25,14 +25,14 @@ public class KafkaCqrsListener {
     }
 
     @KafkaListener(topics = "wordEventTopic", groupId = "consumerEventsGroup")
-    public void listenAddWordInDictionaryEvent(final String message) throws IOException {
-        WordAddedEvent wordAddedEvent = OBJECT_MAPPER.readValue(message, WordAddedEvent.class);
-        commandHandler.handleAddWordEvent(wordAddedEvent);
+    public void listenWordEvent(final String message) throws IOException {
+        WordEvent wordEvent = OBJECT_MAPPER.readValue(message, WordEvent.class);
+        commandHandler.handleWordEvent(wordEvent);
     }
 
     @KafkaListener(topics = "dictionaryEventTopic", groupId = "dictionaryConsumerEventsGroup")
-    public void listenAddDictionaryEvent(final String message) throws IOException {
-        DictionaryAddedEvent dictionaryAddedEvent = OBJECT_MAPPER.readValue(message, DictionaryAddedEvent.class);
-        commandHandler.handleAddDictionaryEvent(dictionaryAddedEvent);
+    public void listenDictionaryEvent(final String message) throws IOException {
+        DictionaryEvent dictionaryEvent = OBJECT_MAPPER.readValue(message, DictionaryEvent.class);
+        commandHandler.handleDictionaryEvent(dictionaryEvent);
     }
 }

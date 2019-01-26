@@ -4,8 +4,8 @@ import com.faust8888.cambridge.cqrs.command.model.Dictionary;
 import com.faust8888.cambridge.cqrs.command.model.Meaning;
 import com.faust8888.cambridge.cqrs.command.model.Translation;
 import com.faust8888.cambridge.cqrs.command.model.Word;
-import com.faust8888.cambridge.events.DictionaryAddedEvent;
-import com.faust8888.cambridge.events.WordAddedEvent;
+import com.faust8888.cambridge.events.DictionaryEvent;
+import com.faust8888.cambridge.events.WordEvent;
 import com.faust8888.cambridge.items.words.WordMeaning;
 import com.faust8888.cambridge.items.words.WordTranslation;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class CqrsMapperService {
 
-    public Dictionary toDictionary(final DictionaryAddedEvent event) {
+    public Dictionary toDictionary(final DictionaryEvent event) {
         Dictionary dictionary = new Dictionary();
         dictionary.setTag(event.getTag());
         dictionary.setDictionaryName(event.getDictionaryName());
@@ -25,7 +25,7 @@ public class CqrsMapperService {
         return dictionary;
     }
 
-    public Word toWord(final WordAddedEvent event) {
+    public Word toWord(final WordEvent event) {
         Word word = new Word();
 
         List<WordTranslation> wordTranslations = event.getWord().getWordTranslations();

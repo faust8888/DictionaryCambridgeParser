@@ -1,25 +1,29 @@
 package com.faust8888.cambridge.events;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.EnumDeserializer;
 import com.faust8888.cambridge.items.words.Word;
+import com.faust8888.cambridge.items.words.WordKindEventEnum;
 
-public final class WordAddedEvent extends CambridgeEvent {
+public final class WordEvent extends CambridgeEvent {
 
     @JsonProperty("id")
     private Long eventId;
     private Long dictionaryId;
     private String dictionaryName;
     private Word word;
-    private String wordSearch;
+    private String wordAsString;
+    private WordKindEventEnum kindEventEnum;
 
-    private WordAddedEvent(final Long eventId, final Long dictionaryId, final String dictionaryName, final Word word) {
+    private WordEvent(final Long eventId, final Long dictionaryId, final String dictionaryName, final Word word) {
         this.eventId = eventId;
         this.dictionaryId = dictionaryId;
         this.dictionaryName = dictionaryName;
         this.word = word;
     }
 
-    public WordAddedEvent(){}
+    public WordEvent(){}
 
     public Long getDictionaryId() {
         return dictionaryId;
@@ -33,16 +37,32 @@ public final class WordAddedEvent extends CambridgeEvent {
         return word;
     }
 
-    public void setWordSearch(final String wordSearch) {
-        this.wordSearch = wordSearch;
+    public void setWordAsString(final String wordAsString) {
+        this.wordAsString = wordAsString;
     }
 
-    public String getWordSearch() {
-        return wordSearch;
+    public String getWordAsString() {
+        return wordAsString;
     }
 
     public void setWord(final Word word) {
         this.word = word;
+    }
+
+    public WordKindEventEnum getKindEventEnum() {
+        return kindEventEnum;
+    }
+
+    public void setKindEventEnum(WordKindEventEnum kindEventEnum) {
+        this.kindEventEnum = kindEventEnum;
+    }
+
+    public void setDictionaryId(Long dictionaryId) {
+        this.dictionaryId = dictionaryId;
+    }
+
+    public void setDictionaryName(String dictionaryName) {
+        this.dictionaryName = dictionaryName;
     }
 
     public static class Builder {
@@ -75,8 +95,8 @@ public final class WordAddedEvent extends CambridgeEvent {
             return this;
         }
 
-        public WordAddedEvent build() {
-            WordAddedEvent event = new WordAddedEvent(eventId, dictionaryId, dictionaryName, word);
+        public WordEvent build() {
+            WordEvent event = new WordEvent(eventId, dictionaryId, dictionaryName, word);
             return event;
         }
     }

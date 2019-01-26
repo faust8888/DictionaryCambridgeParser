@@ -50,7 +50,12 @@ public class CommonCommandRepositoryService {
         dictionaryCommandRepository.save(dictionary);
     }
 
-    public void deleteWord(final Word word, final Long dictionaryId) {
+    public void deleteWord(final Word word, final Dictionary dictionary) {
+        dictionary.deleteWord(word);
+        dictionaryCommandRepository.save(dictionary);
+    }
 
+    public Word findWordByWord(final String word){
+        return wordCommandRepository.findWordByWord(word);
     }
 }

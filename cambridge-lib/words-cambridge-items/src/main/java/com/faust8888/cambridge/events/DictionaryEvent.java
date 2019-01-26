@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
-public class DictionaryAddedEvent extends CambridgeEvent {
+public class DictionaryEvent extends CambridgeEvent {
 
     @JsonProperty("id")
     private Long eventId;
@@ -17,11 +17,11 @@ public class DictionaryAddedEvent extends CambridgeEvent {
 
     private String userName;
 
-    private DictionaryAddedEvent(final Long eventId,
-                                 final String tag,
-                                 final String dictionaryName,
-                                 final Date createDate,
-                                 final String userName) {
+    private DictionaryEvent(final Long eventId,
+                            final String tag,
+                            final String dictionaryName,
+                            final Date createDate,
+                            final String userName) {
         this.eventId = eventId;
         this.tag = tag;
         this.dictionaryName = dictionaryName;
@@ -29,7 +29,7 @@ public class DictionaryAddedEvent extends CambridgeEvent {
         this.userName = userName;
     }
 
-    public DictionaryAddedEvent(){}
+    public DictionaryEvent(){}
 
     public Long getEventId() {
         return eventId;
@@ -88,8 +88,8 @@ public class DictionaryAddedEvent extends CambridgeEvent {
             return this;
         }
 
-        public DictionaryAddedEvent build() {
-            DictionaryAddedEvent event = new DictionaryAddedEvent(eventId, tag, dictionaryName, createDate, userName);
+        public DictionaryEvent build() {
+            DictionaryEvent event = new DictionaryEvent(eventId, tag, dictionaryName, createDate, userName);
             return event;
         }
     }

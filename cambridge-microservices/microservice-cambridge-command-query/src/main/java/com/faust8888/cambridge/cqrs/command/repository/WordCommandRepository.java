@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WordCommandRepository extends CrudRepository<Word, Long> {
+
+    Word findWordByWord(final String word);
+
 }

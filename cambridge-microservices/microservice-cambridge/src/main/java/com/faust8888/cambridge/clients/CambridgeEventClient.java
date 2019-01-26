@@ -1,7 +1,7 @@
 package com.faust8888.cambridge.clients;
 
-import com.faust8888.cambridge.events.DictionaryAddedEvent;
-import com.faust8888.cambridge.events.WordAddedEvent;
+import com.faust8888.cambridge.events.DictionaryEvent;
+import com.faust8888.cambridge.events.WordEvent;
 import com.faust8888.cambridge.service.DiscoveryClientService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -25,16 +25,24 @@ public class CambridgeEventClient {
             commandProperties= {
                     @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="6000"),
                     @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")})
-    public void createWordAddedEvent(final WordAddedEvent wordAddedEvent) {
-        customRestTemplate.put(discoveryClient.getAddedWordEventUrl(), wordAddedEvent.toStringJSON());
+    public void createWordAddedEvent(final WordEvent wordEvent) {
+        customRestTemplate.put(discoveryClient.getWordEventUrl(), wordEvent.toStringJSON());
     }
 
     @HystrixCommand(
             commandProperties= {
                     @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="6000"),
                     @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")})
-    public void createDictionaryAddedEvent(final DictionaryAddedEvent dictionaryAddedEvent) {
-        customRestTemplate.put(discoveryClient.getAddedDictionaryEventUrl(), dictionaryAddedEvent.toStringJSON());
+    public void createDictionaryAddedEvent(final DictionaryEvent dictionaryEvent) {
+        customRestTemplate.put(discoveryClient.getAddedDictionaryEventUrl(), dictionaryEvent.toStringJSON());
+    }
+
+    @HystrixCommand(
+            commandProperties= {
+                    @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="6000"),
+                    @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE")})
+    public void createWordDeletedEvent(final WordEvent wordEvent) {
+        customRestTemplate.put(discoveryClient.getWordEventUrl(), wordEvent.toStringJSON());
     }
 
 //

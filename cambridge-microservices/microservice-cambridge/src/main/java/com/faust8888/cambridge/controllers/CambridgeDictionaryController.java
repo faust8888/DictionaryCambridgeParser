@@ -2,7 +2,7 @@ package com.faust8888.cambridge.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.faust8888.cambridge.clients.CambridgeEventClient;
-import com.faust8888.cambridge.events.DictionaryAddedEvent;
+import com.faust8888.cambridge.events.DictionaryEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +23,8 @@ public class CambridgeDictionaryController {
     @RequestMapping(value = "/addDictionary/", method = RequestMethod.PUT)
     public ResponseEntity addDictionaryRequest(@RequestBody final String dictionary) {
         try {
-            DictionaryAddedEvent dictionaryAddedEvent = OBJECT_MAPPER.readValue(dictionary, DictionaryAddedEvent.class);
-            eventClient.createDictionaryAddedEvent(dictionaryAddedEvent);
+            DictionaryEvent dictionaryEvent = OBJECT_MAPPER.readValue(dictionary, DictionaryEvent.class);
+            eventClient.createDictionaryAddedEvent(dictionaryEvent);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Throwable e) {
             return new ResponseEntity(HttpStatus.CONFLICT);

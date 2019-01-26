@@ -17,15 +17,15 @@ public class CambridgeEventController {
         this.kafkaCambridgeEventService = kafkaCambridgeEventService;
     }
 
-    @RequestMapping(value = "/addWordEvent", method = RequestMethod.PUT)
-    public ResponseEntity addWordEvent(@RequestBody final String addWordEvent) {
-        kafkaCambridgeEventService.sendWordEventMessage(addWordEvent);
+    @RequestMapping(value = "/wordEvent", method = RequestMethod.PUT)
+    public ResponseEntity wordEventRequest(@RequestBody final String wordEvent) {
+        kafkaCambridgeEventService.sendWordEventMessage(wordEvent);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/addDictionaryEvent", method = RequestMethod.PUT)
-    public ResponseEntity addDictionaryEvent(@RequestBody final String addDictionaryEvent) {
-        kafkaCambridgeEventService.sendDictionaryEventMessage(addDictionaryEvent);
+    @RequestMapping(value = "/dictionaryEvent", method = RequestMethod.PUT)
+    public ResponseEntity dictionaryEventRequest(@RequestBody final String dictionaryEvent) {
+        kafkaCambridgeEventService.sendDictionaryEventMessage(dictionaryEvent);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

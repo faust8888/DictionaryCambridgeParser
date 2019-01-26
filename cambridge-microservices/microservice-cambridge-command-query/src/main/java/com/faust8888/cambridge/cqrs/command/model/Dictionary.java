@@ -84,4 +84,8 @@ public class Dictionary {
     public void addWord(final Word word) {
         words.add(word);
     }
+
+    public void deleteWord(final Word word) {
+        words.remove(word);
+    }
 }

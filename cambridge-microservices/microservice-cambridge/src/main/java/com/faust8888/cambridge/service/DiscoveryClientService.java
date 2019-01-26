@@ -20,15 +20,15 @@ public class DiscoveryClientService {
         this.dictionaryConfig = dictionaryConfig;
     }
 
-    public String getAddedWordEventUrl() {
+    public String getWordEventUrl() {
         ServiceInfo eventServiceInfo = getEventServiceInfo();
-        return String.format("http://%s:%s/cambridge/events/addWordEvent",
+        return String.format("http://%s:%s/cambridge/events/wordEvent",
                 eventServiceInfo.getHost(), eventServiceInfo.getPort());
     }
 
     public String getAddedDictionaryEventUrl() {
         ServiceInfo eventServiceInfo = getEventServiceInfo();
-        return String.format("http://%s:%s/cambridge/events/addDictionaryEvent",
+        return String.format("http://%s:%s/cambridge/events/dictionaryEvent",
                 eventServiceInfo.getHost(), eventServiceInfo.getPort());
     }
 

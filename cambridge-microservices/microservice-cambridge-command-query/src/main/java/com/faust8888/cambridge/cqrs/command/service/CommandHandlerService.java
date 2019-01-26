@@ -2,8 +2,9 @@ package com.faust8888.cambridge.cqrs.command.service;
 
 import com.faust8888.cambridge.cqrs.command.model.Dictionary;
 import com.faust8888.cambridge.cqrs.command.model.Word;
-import com.faust8888.cambridge.events.DictionaryAddedEvent;
-import com.faust8888.cambridge.events.WordAddedEvent;
+import com.faust8888.cambridge.events.DictionaryEvent;
+import com.faust8888.cambridge.events.WordEvent;
+import com.faust8888.cambridge.items.words.WordKindEventEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +25,20 @@ public class CommandHandlerService {
         this.mapperService = mapperService;
     }
 
-    public void handleAddWordEvent(final WordAddedEvent wordAddedEvent) {
-        Dictionary dictionary = repositoryService.getDictionaryById(wordAddedEvent.getDictionaryId());
-        Word word = mapperService.toWord(wordAddedEvent);
-        repositoryService.saveWord(word, dictionary);
+    public void handleWordEvent(final WordEvent wordEvent) {
+        Dictionary dictionary = repositoryService.getDictionaryById(wordEvent.getDictionaryId());
+
+        if(wordEvent.getKindEventEnum() == WordKindEventEnum.ADD) {
+            Word word = mapperService.toWord(wordEvent);
+            repositoryService.saveWord(word, dictionary);
+        } else if(wordEvent.getKindEventEnum() == WordKindEventEnum.DELETE) {
+            Word word = repositoryService.findWordByWord(wordEvent.getWordAsString());
+            repositoryService.deleteWord(word, dictionary);
+        }
     }
 
-    public void handleAddDictionaryEvent(final DictionaryAddedEvent dictionaryAddedEvent) {
-        Dictionary dictionary = mapperService.toDictionary(dictionaryAddedEvent);
+    public void handleDictionaryEvent(final DictionaryEvent dictionaryEvent) {
+        Dictionary dictionary = mapperService.toDictionary(dictionaryEvent);
         repositoryService.saveDictionary(dictionary);
     }
 }
