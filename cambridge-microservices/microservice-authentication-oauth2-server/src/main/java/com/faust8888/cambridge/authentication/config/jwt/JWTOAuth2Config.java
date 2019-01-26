@@ -21,34 +21,34 @@ public class JWTOAuth2Config extends AuthorizationServerConfigurerAdapter {
     private UserDetailsService userDetailsServiceBean;
     private TokenStore tokenStore;
     private DefaultTokenServices tokenServices;
-    private JwtAccessTokenConverter jwtAccessTokenConverter;
+    private JwtAccessTokenConverter tokenConverter;
     private TokenEnhancer jwtTokenEnhancer;
 
     @Autowired
-    public JWTOAuth2Config(AuthenticationManager authenticationManager, UserDetailsService userDetailsServiceBean,
-                           TokenStore tokenStore, DefaultTokenServices tokenServices,
-                           JwtAccessTokenConverter jwtAccessTokenConverter, TokenEnhancer jwtTokenEnhancer) {
+    public JWTOAuth2Config(final AuthenticationManager authenticationManager,
+                           final UserDetailsService userDetailsServiceBean,
+                           final TokenStore tokenStore,
+                           final DefaultTokenServices tokenService,
+                           final JwtAccessTokenConverter tokenConverter,
+                           final TokenEnhancer jwtTokenEnhancer) {
         this.authenticationManager = authenticationManager;
         this.userDetailsServiceBean = userDetailsServiceBean;
         this.tokenStore = tokenStore;
-        this.tokenServices = tokenServices;
-        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
+        this.tokenServices = tokenService;
+        this.tokenConverter = tokenConverter;
         this.jwtTokenEnhancer = jwtTokenEnhancer;
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(final AuthorizationServerEndpointsConfigurer endpoints) {
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         tokenEnhancerChain
                 .setTokenEnhancers(
-                        Arrays.asList(
-                                jwtTokenEnhancer ,
-                                jwtAccessTokenConverter));
+                        Arrays.asList(jwtTokenEnhancer, tokenConverter));
         endpoints
                 .tokenStore(tokenStore)
-                .accessTokenConverter(jwtAccessTokenConverter)
+                .accessTokenConverter(tokenConverter)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsServiceBean);
     }
-
 }

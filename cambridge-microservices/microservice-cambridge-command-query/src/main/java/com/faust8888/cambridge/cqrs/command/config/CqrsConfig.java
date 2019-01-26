@@ -24,41 +24,39 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class CqrsConfig {
 
-    private DataBaseConnectionConfig dataBaseConnectionConfig;
+    private DataBaseConnectionConfig dbConnectionConfigs;
 
     @Autowired
-    public CqrsConfig(DataBaseConnectionConfig dataBaseConnectionConfig) {
-        this.dataBaseConnectionConfig = dataBaseConnectionConfig;
+    public CqrsConfig(final DataBaseConnectionConfig dbConnectionConfigs) {
+        this.dbConnectionConfigs = dbConnectionConfigs;
     }
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(dataBaseConnectionConfig.getDriverClass());
-        dataSource.setUrl(dataBaseConnectionConfig.getUrl());
-        dataSource.setUsername(dataBaseConnectionConfig.getUsername());
-        dataSource.setPassword(dataBaseConnectionConfig.getPassword());
+        dataSource.setDriverClassName(dbConnectionConfigs.getDriverClass());
+        dataSource.setUrl(dbConnectionConfigs.getUrl());
+        dataSource.setUsername(dbConnectionConfigs.getUsername());
+        dataSource.setPassword(dbConnectionConfigs.getPassword());
 
         return dataSource;
     }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "com.faust8888.cambridge.cqrs" });
+        LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
+        entityManager.setDataSource(dataSource());
+        entityManager.setPackagesToScan(new String[] { "com.faust8888.cambridge.cqrs" });
+        entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        entityManager.setJpaProperties(dataBaseProperties());
 
-        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(dataBaseProperties());
-
-        return em;
+        return entityManager;
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(emf);
+        transactionManager.setEntityManagerFactory(entityManagerFactory);
 
         return transactionManager;
     }
@@ -72,6 +70,7 @@ public class CqrsConfig {
     public SpringLiquibase liquibase() {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setShouldRun(false);
+
         return liquibase;
     }
 
@@ -83,5 +82,4 @@ public class CqrsConfig {
 
         return properties;
     }
-
 }

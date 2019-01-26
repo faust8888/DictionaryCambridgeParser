@@ -17,23 +17,22 @@ public class KafkaCqrsListener {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    private CommandHandlerService commandHandlerService;
+    private CommandHandlerService commandHandler;
 
     @Autowired
-    public KafkaCqrsListener(CommandHandlerService commandHandlerService) {
-        this.commandHandlerService = commandHandlerService;
+    public KafkaCqrsListener(final CommandHandlerService commandHandler) {
+        this.commandHandler = commandHandler;
     }
 
     @KafkaListener(topics = "wordEventTopic", groupId = "consumerEventsGroup")
-    public void listenAddWordInDictionaryEvent(String message) throws IOException {
+    public void listenAddWordInDictionaryEvent(final String message) throws IOException {
         WordAddedEvent wordAddedEvent = OBJECT_MAPPER.readValue(message, WordAddedEvent.class);
-        commandHandlerService.handleAddWordEvent(wordAddedEvent);
+        commandHandler.handleAddWordEvent(wordAddedEvent);
     }
 
     @KafkaListener(topics = "dictionaryEventTopic", groupId = "dictionaryConsumerEventsGroup")
-    public void listenAddDictionaryEvent(String message) throws IOException {
+    public void listenAddDictionaryEvent(final String message) throws IOException {
         DictionaryAddedEvent dictionaryAddedEvent = OBJECT_MAPPER.readValue(message, DictionaryAddedEvent.class);
-        commandHandlerService.handleAddDictionaryEvent(dictionaryAddedEvent);
+        commandHandler.handleAddDictionaryEvent(dictionaryAddedEvent);
     }
-
 }

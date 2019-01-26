@@ -10,17 +10,17 @@ public class Translation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     @Id
-    public Long id;
+    private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "word_id")
-    public Word word;
+    private Word word;
 
     @Column(name = "short_meaning")
-    public String shortMeaning;
+    private String shortMeaning;
 
     @Column(name = "form")
-    public String form;
+    private String form;
 
     @OneToMany(mappedBy="translation", cascade = CascadeType.ALL)
     public List<Meaning> examples;

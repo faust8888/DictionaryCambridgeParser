@@ -13,7 +13,7 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String userName) throws UsernameNotFoundException {
         return new org.springframework.security.core.userdetails.User
                 ("william.woodward", "password2", getAuthority());
     }

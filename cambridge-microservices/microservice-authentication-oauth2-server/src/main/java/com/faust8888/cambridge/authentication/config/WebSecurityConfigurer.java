@@ -17,7 +17,7 @@ public class WebSecurityConfigurer  extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public WebSecurityConfigurer(PasswordEncoder passwordEncoder) {
+    public WebSecurityConfigurer(final PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 

@@ -21,7 +21,7 @@ public class KafkaCqrsConsumer {
     private KafkaCqrsConfig kafkaCqrsConfig;
 
     @Autowired
-    public KafkaCqrsConsumer(KafkaCqrsConfig kafkaCqrsConfig) {
+    public KafkaCqrsConsumer(final KafkaCqrsConfig kafkaCqrsConfig) {
         this.kafkaCqrsConfig = kafkaCqrsConfig;
     }
 
@@ -32,6 +32,7 @@ public class KafkaCqrsConsumer {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaCqrsConfig.getEventConsumerGroupId());
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+
         return new DefaultKafkaConsumerFactory<>(props);
     }
 
@@ -39,7 +40,7 @@ public class KafkaCqrsConsumer {
     public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
+
         return factory;
     }
-
 }

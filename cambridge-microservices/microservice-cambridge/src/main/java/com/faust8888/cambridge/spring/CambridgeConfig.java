@@ -10,7 +10,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
 @RefreshScope
-public class DictionaryAppConfig {
+public class CambridgeConfig {
 
     @Value("${cambridge.message: Hello default!}")
     private String helloMessage;

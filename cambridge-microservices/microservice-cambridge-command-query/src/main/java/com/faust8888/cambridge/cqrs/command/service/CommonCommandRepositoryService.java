@@ -20,34 +20,37 @@ public class CommonCommandRepositoryService {
 
     @Autowired
     public CommonCommandRepositoryService(
-            DictionaryCommandRepository dictionaryCommandRepository,
-            DictionaryContentCommandRepository dictionaryContentCommandRepository,
-            WordCommandRepository wordCommandRepository) {
+            final DictionaryCommandRepository dictionaryCommandRepository,
+            final DictionaryContentCommandRepository dictionaryContentCommandRepository,
+            final WordCommandRepository wordCommandRepository) {
         this.dictionaryCommandRepository = dictionaryCommandRepository;
         this.dictionaryContentCommandRepository = dictionaryContentCommandRepository;
         this.wordCommandRepository = wordCommandRepository;
     }
 
-    public void saveDictionary(Dictionary dictionary) {
+    public Dictionary getDictionaryById(final Long id) {
+        return dictionaryCommandRepository
+                .findById(id).orElseThrow(() -> new RuntimeException("Couldn't find a dictionary with id " + id));
+    }
+
+    public void saveDictionary(final Dictionary dictionary) {
         dictionaryCommandRepository.save(dictionary);
     }
 
-    public void updateDictionary(Dictionary dictionary) {
+    public void updateDictionary(final Dictionary dictionary) {
 
     }
 
-    public void deleteDictionary(Dictionary dictionary) {
+    public void deleteDictionary(final Dictionary dictionary) {
         dictionaryCommandRepository.delete(dictionary);
     }
 
-    public void saveWord(Word word, Long dictionaryId) {
-
+    public void saveWord(final Word word, final Dictionary dictionary) {
+        dictionary.addWord(word);
+        dictionaryCommandRepository.save(dictionary);
     }
 
-    public void deleteWord(Word word, Long dictionaryId) {
+    public void deleteWord(final Word word, final Long dictionaryId) {
 
     }
-
-
-
 }

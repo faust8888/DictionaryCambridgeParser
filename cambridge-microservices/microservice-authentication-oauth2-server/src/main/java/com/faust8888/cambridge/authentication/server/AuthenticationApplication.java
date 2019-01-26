@@ -31,14 +31,14 @@ public class AuthenticationApplication {
 
 
     @RequestMapping(value = { "/user" }, produces = "application/json")
-    public Map<String, Object> user(OAuth2Authentication user) {
+    public Map<String, Object> user(final OAuth2Authentication authentication) {
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("user",
-                user.getUserAuthentication()
+                authentication.getUserAuthentication()
                         .getPrincipal());
         userInfo.put("authorities",
                 AuthorityUtils.authorityListToSet(
-                        user.getUserAuthentication()
+                        authentication.getUserAuthentication()
                                 .getAuthorities()));
         return userInfo;
     }

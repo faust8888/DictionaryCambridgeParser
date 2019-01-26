@@ -18,11 +18,11 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 public class JWTTokenStoreConfig {
 
-    private CambridgeAuthenticationConfig serviceConfig;
+    private CambridgeAuthenticationConfig config;
 
     @Autowired
-    public JWTTokenStoreConfig(CambridgeAuthenticationConfig serviceConfig) {
-        this.serviceConfig = serviceConfig;
+    public JWTTokenStoreConfig(final CambridgeAuthenticationConfig config) {
+        this.config = config;
     }
 
     @Bean
@@ -36,6 +36,7 @@ public class JWTTokenStoreConfig {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore());
         defaultTokenServices.setSupportRefreshToken(true);
+
         return defaultTokenServices;
     }
 
@@ -43,6 +44,7 @@ public class JWTTokenStoreConfig {
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setSigningKey("key");
+
         return converter;
     }
 

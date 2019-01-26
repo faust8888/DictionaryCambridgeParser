@@ -13,11 +13,11 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 @Component
 public class ZuulSecurityFilter extends ZuulFilter {
 
-    private ZuulAccessTokenService zuulAccessTokenService;
+    private ZuulAccessTokenService accessTokenService;
 
     @Autowired
-    public ZuulSecurityFilter(ZuulAccessTokenService zuulAccessTokenService) {
-        this.zuulAccessTokenService = zuulAccessTokenService;
+    public ZuulSecurityFilter(final ZuulAccessTokenService accessTokenService) {
+        this.accessTokenService = accessTokenService;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ZuulSecurityFilter extends ZuulFilter {
 
     @Override
     public Object run() {
-        OAuth2AccessToken token = zuulAccessTokenService.getAccessToken();
+        OAuth2AccessToken token = accessTokenService.getAccessToken();
         addTokenToRequestHeader(token);
 
         return null;
@@ -47,5 +47,4 @@ public class ZuulSecurityFilter extends ZuulFilter {
         RequestContext.getCurrentContext()
                 .addZuulRequestHeader("Authorization", token.getTokenType() + " " + token.getValue());
     }
-
 }

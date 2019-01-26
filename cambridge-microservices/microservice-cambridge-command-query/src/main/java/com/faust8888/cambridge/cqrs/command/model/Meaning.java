@@ -9,21 +9,21 @@ public class Meaning {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     @Id
-    public Long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "word_id", nullable = false)
-    public Word word;
+    private Word word;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "word_translation_id", nullable = false)
-    public Translation translation;
+    private Translation translation;
 
     @Column(name = "explanation")
-    public String explanation;
+    private String explanation;
 
     @Column(name = "examples")
-    public String examples;
+    private String examples;
 
     public Long getId() {
         return id;

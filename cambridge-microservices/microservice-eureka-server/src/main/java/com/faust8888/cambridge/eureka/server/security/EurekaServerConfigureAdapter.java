@@ -11,5 +11,4 @@ public class EurekaServerConfigureAdapter extends ResourceServerConfigurerAdapte
     public void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests().antMatchers("/**").permitAll();
     }
-
 }

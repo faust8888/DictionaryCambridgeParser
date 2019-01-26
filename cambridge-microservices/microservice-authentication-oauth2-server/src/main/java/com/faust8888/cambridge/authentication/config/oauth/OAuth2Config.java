@@ -17,15 +17,16 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public OAuth2Config(AuthenticationManager authenticationManagerBean, UserDetailsService userDetailsServiceBean,
-                        PasswordEncoder passwordEncoder) {
+    public OAuth2Config(final AuthenticationManager authenticationManagerBean,
+                        final UserDetailsService userDetailsServiceBean,
+                        final PasswordEncoder passwordEncoder) {
         this.authenticationManagerBean = authenticationManagerBean;
         this.userDetailsServiceBean = userDetailsServiceBean;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
+    public void configure(final ClientDetailsServiceConfigurer configurer) throws Exception {
         configurer.inMemory()
                 .withClient("cambridge-internal-client")
                 .secret(passwordEncoder.encode("cambridge-internal-client-test-password"))
@@ -35,7 +36,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(final AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints
                 .authenticationManager(authenticationManagerBean)
                 .userDetailsService(userDetailsServiceBean);

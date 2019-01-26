@@ -3,25 +3,27 @@ package com.faust8888.cambridge.events.kafka;
 import com.faust8888.cambridge.events.kafka.config.KafkaEventsConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class KafkaCambridgeEventsService {
+@Service
+public class KafkaCambridgeEventService {
 
     private KafkaTemplate<String, String> kafkaTemplate;
     private KafkaEventsConfig kafkaEventsConfig;
 
     @Autowired
-    public KafkaCambridgeEventsService(KafkaTemplate<String, String> kafkaTemplate, KafkaEventsConfig kafkaEventsConfig) {
+    public KafkaCambridgeEventService(
+            final KafkaTemplate<String, String> kafkaTemplate,
+            final KafkaEventsConfig kafkaEventsConfig) {
         this.kafkaTemplate = kafkaTemplate;
         this.kafkaEventsConfig = kafkaEventsConfig;
     }
 
-    public void sendWordEventMessage(String message) {
+    public void sendWordEventMessage(final String message) {
         kafkaTemplate.send(kafkaEventsConfig.getWordEventTopicName(), kafkaEventsConfig.getEventPartitionKey(), message);
     }
 
-    public void sendDictionaryEventMessage(String message) {
+    public void sendDictionaryEventMessage(final String message) {
         kafkaTemplate.send(kafkaEventsConfig.getDictionaryEventTopicName(), kafkaEventsConfig.getEventPartitionKey(), message);
     }
 

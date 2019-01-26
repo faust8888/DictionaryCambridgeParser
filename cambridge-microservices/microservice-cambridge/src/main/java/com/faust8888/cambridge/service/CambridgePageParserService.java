@@ -27,7 +27,6 @@ public final class CambridgePageParserService {
     private static final String PRE_MEANING_ELEMENT = "def";
     private static final String SHORT_MEANING_ELEMENT = "def-body";
     private static final String EXAMPLE_ELEMENT = "examp";
-
     private static final String CAMBRIDGE_DICTIONARY_URL = "https://dictionary.cambridge.org/dictionary/english/";
 
     private String word;

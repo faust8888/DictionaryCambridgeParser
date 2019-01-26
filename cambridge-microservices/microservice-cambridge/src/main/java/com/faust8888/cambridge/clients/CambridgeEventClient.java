@@ -6,17 +6,17 @@ import com.faust8888.cambridge.service.DiscoveryClientService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Component
+@Service
 public class CambridgeEventClient {
 
     private RestTemplate customRestTemplate;
     private DiscoveryClientService discoveryClient;
 
     @Autowired
-    public CambridgeEventClient(DiscoveryClientService discoveryClient, RestTemplate customRestTemplate) {
+    public CambridgeEventClient(final DiscoveryClientService discoveryClient, final RestTemplate customRestTemplate) {
         this.customRestTemplate = customRestTemplate;
         this.discoveryClient = discoveryClient;
     }

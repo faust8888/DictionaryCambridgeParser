@@ -1,20 +1,16 @@
 package com.faust8888.cambridge.events;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.faust8888.cambridge.items.words.Word;
 
 public final class WordAddedEvent extends CambridgeEvent {
 
     @JsonProperty("id")
     private Long eventId;
-
     private Long dictionaryId;
-
     private String dictionaryName;
-
     private Word word;
+    private String wordSearch;
 
     private WordAddedEvent(final Long eventId, final Long dictionaryId, final String dictionaryName, final Word word) {
         this.eventId = eventId;
@@ -22,6 +18,8 @@ public final class WordAddedEvent extends CambridgeEvent {
         this.dictionaryName = dictionaryName;
         this.word = word;
     }
+
+    public WordAddedEvent(){}
 
     public Long getDictionaryId() {
         return dictionaryId;
@@ -35,14 +33,17 @@ public final class WordAddedEvent extends CambridgeEvent {
         return word;
     }
 
-//    public String toStringJSON() {
-//        try {
-//            return new ObjectMapper().writeValueAsString(this);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//            return "-";
-//        }
-//    }
+    public void setWordSearch(final String wordSearch) {
+        this.wordSearch = wordSearch;
+    }
+
+    public String getWordSearch() {
+        return wordSearch;
+    }
+
+    public void setWord(final Word word) {
+        this.word = word;
+    }
 
     public static class Builder {
 

@@ -19,7 +19,7 @@ public class KafkaEventProducer {
     private KafkaEventsConfig kafkaEventsConfig;
 
     @Autowired
-    public KafkaEventProducer(KafkaEventsConfig kafkaEventsConfig) {
+    public KafkaEventProducer(final KafkaEventsConfig kafkaEventsConfig) {
         this.kafkaEventsConfig = kafkaEventsConfig;
     }
 
@@ -30,6 +30,7 @@ public class KafkaEventProducer {
         configProps.put(ProducerConfig.CLIENT_ID_CONFIG, kafkaEventsConfig.getClientId());
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 

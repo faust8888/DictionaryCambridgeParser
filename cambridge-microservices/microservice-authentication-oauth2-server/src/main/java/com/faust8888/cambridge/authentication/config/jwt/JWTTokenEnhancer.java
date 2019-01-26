@@ -13,7 +13,7 @@ public class JWTTokenEnhancer implements TokenEnhancer {
     private static final String ORGANIZATION_ID = "cambridge";
 
     @Override
-    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+    public OAuth2AccessToken enhance(final OAuth2AccessToken accessToken, final OAuth2Authentication authentication) {
         Map<String, Object> additionalInfo = new HashMap<>();
         additionalInfo.put("organizationId", ORGANIZATION_ID);
         ((DefaultOAuth2AccessToken) accessToken)

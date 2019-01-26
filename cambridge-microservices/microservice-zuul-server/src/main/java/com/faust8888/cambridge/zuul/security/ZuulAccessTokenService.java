@@ -22,13 +22,14 @@ public class ZuulAccessTokenService {
     private OAuth2RestTemplate customRestTemplate;
 
     @Autowired
-    public ZuulAccessTokenService(DiscoveryClient discoveryClient) {
+    public ZuulAccessTokenService(final DiscoveryClient discoveryClient) {
         this.discoveryClient = discoveryClient;
         this.customRestTemplate = oauth2RestTemplate();
     }
 
     public OAuth2AccessToken getAccessToken() {
         customRestTemplate.setAccessTokenProvider(new ResourceOwnerPasswordAccessTokenProvider());
+
         return customRestTemplate.getAccessToken();
     }
 
@@ -67,5 +68,4 @@ public class ZuulAccessTokenService {
 
         return resource;
     }
-
 }

@@ -10,11 +10,11 @@ public class DictionaryContent {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     @Id
-    public Long id;
+    private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dictionary_id")
-    public Dictionary dictionary;
+    private Dictionary dictionary;
 
     @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinTable(
@@ -22,7 +22,7 @@ public class DictionaryContent {
             joinColumns = {@JoinColumn(name = "word_id")},
             inverseJoinColumns = {@JoinColumn(name = "id")}
     )
-    public List<Word> words;
+    private List<Word> words;
 
     public Long getId() {
         return id;

@@ -2,6 +2,7 @@ package com.faust8888.cambridge.cqrs.command.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -11,26 +12,26 @@ public class Dictionary {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     @Id
-    public Long id;
+    private Long id;
 
     @Column(name = "tag")
-    public String tag;
+    private String tag;
 
     @Column(name = "dictionary_name")
-    public String dictionaryName;
+    private String dictionaryName;
 
     @Column(name = "create_date")
-    public Date createDate;
+    private Date createDate;
 
     @Column(name = "user_id")
-    public Long userId;
+    private Long userId;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "dictionary_content",
             joinColumns = {@JoinColumn(name = "dictionary_id", nullable = false, updatable = false) },
             inverseJoinColumns = {@JoinColumn(name = "word_id", nullable = false, updatable = false) })
-    public Set<Word> words;
+    private Set<Word> words = new HashSet<>();
 
     public Set<Word> getWords() {
         return this.words;
@@ -78,5 +79,9 @@ public class Dictionary {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public void addWord(final Word word) {
+        words.add(word);
     }
 }

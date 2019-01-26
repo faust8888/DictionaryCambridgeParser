@@ -29,6 +29,8 @@ public class DictionaryAddedEvent extends CambridgeEvent {
         this.userName = userName;
     }
 
+    public DictionaryAddedEvent(){}
+
     public Long getEventId() {
         return eventId;
     }
