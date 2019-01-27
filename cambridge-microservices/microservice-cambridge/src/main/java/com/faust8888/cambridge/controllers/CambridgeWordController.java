@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 //@RequestMapping(value = "/cambridge/v1")
 public class CambridgeWordController {
@@ -49,6 +51,7 @@ public class CambridgeWordController {
             Word newWord = pageParserService.parse(wordEvent.getWordAsString(), 2000);
             wordEvent.setWord(newWord);
             wordEvent.setKindEventEnum(WordKindEventEnum.ADD);
+            wordEvent.setEventUUID(UUID.randomUUID().toString());
             eventClient.createWordAddedEvent(wordEvent);
 
             return new ResponseEntity(HttpStatus.OK);

@@ -7,7 +7,7 @@ import java.util.Date;
 public class DictionaryEvent extends CambridgeEvent {
 
     @JsonProperty("id")
-    private Long eventId;
+    private String eventUUID;
 
     private String tag;
 
@@ -17,12 +17,12 @@ public class DictionaryEvent extends CambridgeEvent {
 
     private String userName;
 
-    private DictionaryEvent(final Long eventId,
+    private DictionaryEvent(final String eventUUID,
                             final String tag,
                             final String dictionaryName,
                             final Date createDate,
                             final String userName) {
-        this.eventId = eventId;
+        this.eventUUID = eventUUID;
         this.tag = tag;
         this.dictionaryName = dictionaryName;
         this.createDate = createDate;
@@ -31,8 +31,12 @@ public class DictionaryEvent extends CambridgeEvent {
 
     public DictionaryEvent(){}
 
-    public Long getEventId() {
-        return eventId;
+    public String getEventUUID() {
+        return eventUUID;
+    }
+
+    public void setEventUUID(String eventUUID) {
+        this.eventUUID = eventUUID;
     }
 
     public String getTag() {
@@ -51,9 +55,16 @@ public class DictionaryEvent extends CambridgeEvent {
         return userName;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("DictionaryEvent [");
+        sb.append("]");
+        return sb.toString();
+    }
+
     public static class Builder {
 
-        private Long eventId;
+        private String eventUUID;
 
         private String tag;
 
@@ -63,8 +74,8 @@ public class DictionaryEvent extends CambridgeEvent {
 
         private String userName;
 
-        public Builder addEventId(final Long eventId) {
-            this.eventId = eventId;
+        public Builder addEventId(final String eventUUID) {
+            this.eventUUID = eventUUID;
             return this;
         }
 
@@ -89,7 +100,7 @@ public class DictionaryEvent extends CambridgeEvent {
         }
 
         public DictionaryEvent build() {
-            DictionaryEvent event = new DictionaryEvent(eventId, tag, dictionaryName, createDate, userName);
+            DictionaryEvent event = new DictionaryEvent(eventUUID, tag, dictionaryName, createDate, userName);
             return event;
         }
     }

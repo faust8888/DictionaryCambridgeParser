@@ -20,3 +20,4 @@ cambridge-lib/security-cambridge-filter/target
 cambridge-lib/words-cambridge-items/target
 docker/*/*.jar
 docker/*/*.war
+logs

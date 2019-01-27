@@ -9,15 +9,15 @@ import com.faust8888.cambridge.items.words.WordKindEventEnum;
 public final class WordEvent extends CambridgeEvent {
 
     @JsonProperty("id")
-    private Long eventId;
+    private String eventUUID;
     private Long dictionaryId;
     private String dictionaryName;
     private Word word;
     private String wordAsString;
     private WordKindEventEnum kindEventEnum;
 
-    private WordEvent(final Long eventId, final Long dictionaryId, final String dictionaryName, final Word word) {
-        this.eventId = eventId;
+    private WordEvent(final String eventUUID, final Long dictionaryId, final String dictionaryName, final Word word) {
+        this.eventUUID = eventUUID;
         this.dictionaryId = dictionaryId;
         this.dictionaryName = dictionaryName;
         this.word = word;
@@ -65,9 +65,39 @@ public final class WordEvent extends CambridgeEvent {
         this.dictionaryName = dictionaryName;
     }
 
+    public String getEventUUID() {
+        return eventUUID;
+    }
+
+    public void setEventUUID(String eventUUID) {
+        this.eventUUID = eventUUID;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("WordEvent [");
+        if (kindEventEnum != null) {
+            sb.append("event = " + kindEventEnum.name());
+        }
+        if(wordAsString != null) {
+            sb.append(", word = " + wordAsString);
+        }
+        if (dictionaryName != null) {
+            sb.append(", dictionaryName = " + dictionaryName);
+        }
+        if (dictionaryId != null) {
+            sb.append(", dictionaryId = " + dictionaryId);
+        }
+        if(eventUUID != null) {
+            sb.append(", eventUUID = " + eventUUID);
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
     public static class Builder {
 
-        private Long eventId;
+        private String eventUUID;
 
         private Long dictionaryId;
 
@@ -75,8 +105,8 @@ public final class WordEvent extends CambridgeEvent {
 
         private Word word;
 
-        public Builder addEventId(final Long eventId) {
-            this.eventId = eventId;
+        public Builder addEventId(final String eventUUID) {
+            this.eventUUID = eventUUID;
             return this;
         }
 
@@ -96,7 +126,7 @@ public final class WordEvent extends CambridgeEvent {
         }
 
         public WordEvent build() {
-            WordEvent event = new WordEvent(eventId, dictionaryId, dictionaryName, word);
+            WordEvent event = new WordEvent(eventUUID, dictionaryId, dictionaryName, word);
             return event;
         }
     }
