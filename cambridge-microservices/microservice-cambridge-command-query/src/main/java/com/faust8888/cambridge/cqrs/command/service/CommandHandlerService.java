@@ -5,11 +5,15 @@ import com.faust8888.cambridge.cqrs.command.model.Word;
 import com.faust8888.cambridge.events.DictionaryEvent;
 import com.faust8888.cambridge.events.WordEvent;
 import com.faust8888.cambridge.items.words.WordKindEventEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CommandHandlerService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommandHandlerService.class);
 
     private CommonCommandRepositoryService repositoryService;
     private NotificationEventQueryService notificationEventQueryService;
@@ -26,19 +30,24 @@ public class CommandHandlerService {
     }
 
     public void handleWordEvent(final WordEvent wordEvent) {
-        Dictionary dictionary = repositoryService.getDictionaryById(wordEvent.getDictionaryId());
+        LOGGER.info("Start handle word event. UID - {}, Event - {}, Word - {}",
+                wordEvent.getEventUUID(), wordEvent.getKindEventEnum().toValue(), wordEvent.getWordAsString());
 
+        final Dictionary dictionary = repositoryService.getDictionaryById(wordEvent.getDictionaryId());
         if(wordEvent.getKindEventEnum() == WordKindEventEnum.ADD) {
-            Word word = mapperService.toWord(wordEvent);
+            final Word word = mapperService.toWord(wordEvent);
             repositoryService.saveWord(word, dictionary);
+            notificationEventQueryService.notifyAboutAddedWordEvent(wordEvent);
         } else if(wordEvent.getKindEventEnum() == WordKindEventEnum.DELETE) {
-            Word word = repositoryService.findWordByWord(wordEvent.getWordAsString());
+            final Word word = repositoryService.findWordByWord(wordEvent.getWordAsString());
             repositoryService.deleteWord(word, dictionary);
         }
+
+        LOGGER.info("Finish handle word event. UID - {}", wordEvent.getEventUUID());
     }
 
     public void handleDictionaryEvent(final DictionaryEvent dictionaryEvent) {
-        Dictionary dictionary = mapperService.toDictionary(dictionaryEvent);
+        final Dictionary dictionary = mapperService.toDictionary(dictionaryEvent);
         repositoryService.saveDictionary(dictionary);
     }
 }
