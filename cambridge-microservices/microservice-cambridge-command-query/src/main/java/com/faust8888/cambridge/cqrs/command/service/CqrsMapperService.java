@@ -1,5 +1,6 @@
 package com.faust8888.cambridge.cqrs.command.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.faust8888.cambridge.cqrs.command.model.Dictionary;
 import com.faust8888.cambridge.cqrs.command.model.Meaning;
 import com.faust8888.cambridge.cqrs.command.model.Translation;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,8 @@ import java.util.List;
 public class CqrsMapperService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CqrsMapperService.class);
+
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     public Dictionary toDictionary(final DictionaryEvent event) {
         final Dictionary dictionary = new Dictionary();
@@ -61,6 +65,14 @@ public class CqrsMapperService {
         word.setWord(event.getWord().getWord());
 
         return word;
+    }
+
+    public WordEvent toWordEvent(final String wordEventAsJson) throws IOException {
+        return OBJECT_MAPPER.readValue(wordEventAsJson, WordEvent.class);
+    }
+
+    public DictionaryEvent toDictionaryEvent(final String dictionaryEventAsString) throws IOException {
+        return OBJECT_MAPPER.readValue(dictionaryEventAsString, DictionaryEvent.class);
     }
 
 }

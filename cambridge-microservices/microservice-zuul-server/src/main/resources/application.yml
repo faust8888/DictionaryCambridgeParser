@@ -23,6 +23,7 @@ zuul:
   routes:
      cambridgeparser: /parser/**
      cambridge: /cambridge/**
+     cambridgecqrs: /cambridgecqrs/**
   ignored-services: "*"
   sensitive-headers: Cookie,Set-Cookie
 security:
