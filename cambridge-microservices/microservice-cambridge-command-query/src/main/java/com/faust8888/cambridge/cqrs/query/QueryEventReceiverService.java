@@ -35,7 +35,7 @@ public class QueryEventReceiverService {
             final IndexRequestBuilder indexRequestBuilder = createIndexRequestBuilder(wordEvent.getWordAsString());
             indexRequestBuilder.setSource(wordEvent.getWordAsString(), wordEvent.toStringJSON());
             indexRequestBuilder.execute().actionGet();
-        } catch (Throwable e) {
+        } catch (Exception e) {
             LOGGER.info("Exception during an attempt to save a word into Elasticsearch. UID - {}: {}",
                     wordEvent.getEventUUID(),  e.getMessage());
         }

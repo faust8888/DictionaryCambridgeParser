@@ -5,6 +5,7 @@ import com.faust8888.cambridge.cqrs.command.model.Dictionary;
 import com.faust8888.cambridge.cqrs.command.model.Meaning;
 import com.faust8888.cambridge.cqrs.command.model.Translation;
 import com.faust8888.cambridge.cqrs.command.model.Word;
+import com.faust8888.cambridge.events.CambridgeEvent;
 import com.faust8888.cambridge.events.DictionaryEvent;
 import com.faust8888.cambridge.events.WordEvent;
 import com.faust8888.cambridge.items.words.WordMeaning;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CqrsMapperService {

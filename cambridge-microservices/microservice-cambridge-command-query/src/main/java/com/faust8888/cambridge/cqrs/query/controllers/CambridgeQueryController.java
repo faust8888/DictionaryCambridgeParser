@@ -18,9 +18,11 @@ public class CambridgeQueryController {
     @RequestMapping(value = "/getWord/{word}", method = RequestMethod.GET)
     public Word getWordRequest(@PathVariable("word") final String word) {
         try {
+            if(word == null || word.isEmpty()) {
+                throw new RuntimeException("Input parameter word can't be null or empty.");
+            }
             return queryService.getWordById(word);
-        } catch (Throwable e) {
-            e.printStackTrace();
+        } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
             return null;
         }

@@ -6,9 +6,6 @@ import java.util.Date;
 
 public class DictionaryEvent extends CambridgeEvent {
 
-    @JsonProperty("id")
-    private String eventUUID;
-
     private String tag;
 
     private String dictionaryName;
